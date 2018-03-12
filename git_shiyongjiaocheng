@@ -18,7 +18,7 @@
 9, 然后推送到github上
    git push -u sishen master
 注意:以后如果本地有文件变更,再次提交时的步骤如下：
-git commit -m "第二次变更"===> git status(确认) ==> git push -u sishen
+git add 要提交的文件或目录==> git commit -m "第二次变更"===> git status(确认) ==> git push -u sishen
 在整个过程开始之前，还要在github的个人setting里面添加SSH Key,在本地系统中直接使用ssh-keygen生成ssh密钥,然后找到id_rsa.pub,将里面的内容复制粘贴到github上的SSH Key里面即可。
 
 遇到的错误：
