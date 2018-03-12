@@ -1,0 +1,40 @@
+# sishen
+折腾了大半天就为了搞熟练这个工具的使用.
+大概的步骤就是:
+1, 首先在github上新建一个repository,(该步简单就不做详细说明了)
+2, 然后创建本地项目目录,并切换到该目录下
+   mkdir test;cd test
+3, 初始化一个git进程: git init
+4, 将当前目录添加到git本地工作区: git add .
+5, 查看本地工作区和git缓存的状态
+   git status
+6, 提交到git缓存区: git commit -m "这里-m 用来提示或者记录第几次更改"
+7, 将本地git工作区的内容添加到github服务器的缓存中
+   git remote add sishen ssh://git@github.com/xingyunsishen/sishen.git
+   注意: add后的 sishen也是repository的名称,这里按照个人习惯设置也可
+8, 从github上拉取内容到本地,会在当前目录下多出一个README.md文件,由于是测试，所以这    里随便添加了点内容进去。
+   git pull sishen master 
+   注意:最后的master一般是主分支
+9, 然后推送到github上
+   git push -u sishen master
+注意:以后如果本地有文件变更,再次提交时的步骤如下：
+git commit -m "第二次变更"===> git status(确认) ==> git push -u sishen
+在整个过程开始之前，还要在github的个人setting里面添加SSH Key,在本地系统中直接使用ssh-keygen生成ssh密钥,然后找到id_rsa.pub,将里面的内容复制粘贴到github上的SSH Key里面即可。
+
+遇到的错误：
+在整个过程中卡在
+error: The requested URL returned error: 403 Forbidden while accessing https://git@github.com/xingyunsishen/sishen.git/info/refs
+
+fatal: HTTP request failed
+这样一个错误中,在网上找了下解决办法,一种是不使用SSH_key,另一种是使用SSH,两种方法都试了下
+1, 如果不使用SSH,使用HTTPS的话,需要修改下.git/config文件,将原url地址改为如下内容
+   url = https://xingyunsishen@github.com/xingyunsishen/sishen.git,然后保存退出之后   还会报如下错误: 
+   (gnome-ssh-askpass:55616): Gtk-WARNING **: cannot open display:
+   此时,执行以下unset SSH_ASKPASS即可,这样改虽然不报错,但是每次提交都会让你输
+   入github 的密码,所以我使用的是ssh 
+
+2, 使用ssh,首先得set SSH_ASKPASS,不然会报错
+   然后更改.git/config文件,将原url地址更改为
+   url = ssh://git@github.com/xingyunsishen/sishen.git
+   保存退出
+搞定^_^
